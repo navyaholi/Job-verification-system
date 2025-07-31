@@ -1,0 +1,125 @@
+const express = require('express'); 
+const mongoose = require('mongoose'); 
+const bodyParser = require('body-parser'); 
+const cors = require('cors'); 
+const path = require('path'); 
+ 
+// Initialize Express 
+const app = express(); 
+S.NO NAME OF THE FIELD TYPE 
+1 FNAME STRING 
+2 EMAIL STRING 
+3 PNO NUMBER 
+4 DOB STRING 
+5 GENDER STRING 
+6 QUALIFICATION STRING 
+7 GRADE STRING 
+8 ADDR1 STRING 
+9 ADDR2 STRING 
+10 COUNTRY STRING 
+11 CITY STRING 
+12 RELIGION STRING 
+13 PASSWORD STRING 
+ 
+app.use(cors()); 
+app.use(bodyParser.json()); 
+ 
+// Serve static files from the 'public' directory 
+app.use(express.static(path.join(__dirname, 'public'))); 
+app.set('view engine', 'ejs'); 
+app.set('views', path.join(__dirname, 'views')); 
+ 
+// Connect to MongoDB 
+mongoose.connect('mongodb://localhost:27017/registrationDB', { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true 
+}).then(() => console.log('Connected to MongoDB')) 
+  .catch((err) => console.error('Could not connect to MongoDB:', err)); 
+ 
+// Create Schema and Model 
+const userSchema = new mongoose.Schema({ 
+  fname: String, 
+  email: String, 
+  pno: String, 
+  dob: Date, 
+  gender: String, 
+  qualification: String, 
+  grade: String, 
+  addr1: String, 
+  addr2: String, 
+  country: String, 
+  city: String, 
+  region: String, 
+  pcode: String, 
+  password: String 
+ 
+ 
+}); 
+ 
+const User = mongoose.model('User', userSchema); 
+ 
+// Route to serve the registration form 
+app.get('/', (req, res) => { 
+  res.sendFile(path.join(__dirname, 'public', 'home.html')); 
+}); 
+ 
+const bcrypt = require('bcrypt'); 
+ 
+app.post('/register', async (req, res) => { 
+  try { 
+    // Hash the password before saving 
+    const hashedPassword = await bcrypt.hash(req.body.password, 10); 
+    const user = new User({ ...req.body, password: hashedPassword }); 
+    await user.save(); 
+    res.status(201).json({ message: 'User registered successfully' }); 
+  } catch (error) { 
+    res.status(400).json({ message: 'Error registering user: ' + error.message }); 
+  } 
+}); 
+ 
+// Route to display all registered users after admin login 
+app.get('/display', async (req, res) => { 
+  try { 
+    // Fetch all users from the MongoDB 'users' collection 
+    const users = await User.find(); 
+ 
+    // Render the 'display' view with the fetched users 
+    res.render('display', { users }); 
+ 
+  } catch (error) { 
+    res.status(500).json({ message: 'Error fetching users from the database: ' + error.message }); 
+  } 
+}); 
+// Route to handle login 
+app.post('/login', async (req, res) => { 
+    const { email, password } = req.body; 
+   
+    try { 
+      // Find user by email 
+      const user = await User.findOne({ email }); 
+   
+      // If user not found 
+      if (!user) { 
+        return res.status(400).json({ message: 'Invalid email or password' }); 
+      } 
+   
+      // Compare password (make sure to hash the password in the registration step) 
+      if (user.password !== password) { 
+        return res.status(400).json({ message: 'Invalid email or password' }); 
+      } 
+   
+      // Success - login successful 
+      res.status(200).json({ 
+        message: 'Login successful', 
+        redirectUrl: '/job.html'  // Redirect to job page after login 
+      }); 
+    } catch (error) { 
+      res.status(500).json({ message: 'An error occurred during login: ' + error.message }); 
+    } 
+  }); 
+ 
+// Start the server 
+const PORT = process.env.PORT || 3000; 
+app.listen(PORT, () => { 
+  console.log(Server is running on port ${PORT}); 
+});

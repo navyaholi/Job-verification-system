@@ -1,0 +1,151 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <meta charset="UTF-8"> 
+    <title>WebSite Home Page</title> 
+    <style type="text/css"> 
+        * { 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; 
+        } 
+ 
+        header { 
+            width: 100%; 
+            height: 100vh; 
+            background: url(https://miro.medium.com/v2/resize:fit:1200/1*xJ1jC8B
+4OvGDN7hbe0IEQ.jpeg); 
+            background-size: cover; 
+            background-repeat: no-repeat; 
+        } 
+ 
+        nav { 
+            width: 1200px; 
+            height: 80px; 
+            margin: auto; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        } 
+ 
+        nav ul { 
+ 
+
+ 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            list-style: none; 
+        } 
+ 
+        nav img { 
+            width: 180px; 
+            height: 180px; 
+        } 
+ 
+        nav ul li { 
+            margin-right: 40px; 
+            font-family: Arial, sans-serif; 
+            font-weight: bold; 
+            color: whitesmoke; 
+            cursor: pointer; 
+        } 
+ 
+        .btn { 
+            width: 150px; 
+            height: 50px; 
+            background-color: rgb(40, 13, 160); 
+            border-radius: 50px; 
+            cursor: pointer; 
+            border: none; 
+            font-size: 16px; 
+            font-family: Arial, sans-serif; 
+            font-weight: bold; 
+            transition: 0.5s; 
+            color: #fff; 
+ 
+        } 
+ 
+        .btn:hover { 
+            background-color: #fff; 
+            color: #423783; 
+        } 
+ 
+        .container { 
+            width: 1200px; 
+            height: 100vh; 
+            margin: auto; 
+            display: none; 
+        } 
+ 
+        .container h1 { 
+            font-family: Arial, sans-serif; 
+            font-size: 60px; 
+            font-weight: bold; 
+            padding-top: 180px; 
+            color: whitesmoke; 
+        } 
+ 
+        .container p { 
+            color: #1d0e0e; 
+            font-family: Arial, sans-serif; 
+            font-size: 17px; 
+            line-height: 30px; 
+            font-weight: bold; 
+            padding-top: 25px; 
+        }  
+ 
+        .container .btn { 
+            margin-top: 25px; 
+        } 
+    </style> 
+</head> 
+<body> 
+<header> 
+    <nav> 
+        <img src="ga.png"> 
+        <ul> 
+            <a href="homepage.html"><li>Home</li></a> <!-- Call the showHomePage function --> 
+            <a href="about.html"><li>About</li></a> 
+            <a href="login.html"><li>Login</li></a> <!-- Updated this link --> 
+            <a href="register.html"><li>Register</li></a> <!-- Updated this link --> 
+            <a href="admin.html"><li>Admin</li></a> 
+            <a href="contact.html"><li>Contact</li></a> 
+            <li><button class="btn" onclick="redirectToContactPage()">Contact Now</button></li> 
+        </ul> 
+    </nav> 
+ 
+    <div class="container" id="homeContent"> <!-- Give an ID to the container for easy access --> 
+        <!-- Your home page content here --> 
+        <h1>Welcome to Our Website!</h1> 
+        <p>This is the home page content.</p> 
+        <center> 
+            <br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br> <br> <br> <br> <br> <br> <br> 
+<br> <br>  
+            <br> <a href="register.html" class="btn">Click Here to Register</a> <!-- Updated this link --> 
+            <a href="login.html" class="btn">Click Here to Login</a> <!-- Updated this link --> 
+        </center> 
+    </div> 
+ 
+</header> 
+</body> 
+<script> 
+    function showHomePage() { 
+        document.getElementById('homeContent').style.display = 'block'; // Show the container when 
+Home button is clicked 
+    } 
+ 
+    function redirectToLoginPage() { 
+        window.location.href = 'login.html'; 
+    } 
+ 
+    function redirectToContactPage() { 
+        window.location.href = 'contact.html'; 
+    } 
+</script> 
+<script type="module" 
+src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script> 
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script> 
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> 
+<script src="app.js"></script> 
+</html>
